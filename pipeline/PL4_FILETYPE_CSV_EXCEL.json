@@ -1,9 +1,10 @@
 {
-	"name": "PL2_RAW_DATA",
+	"name": "PL4_FILETYPE_CSV_EXCEL",
 	"properties": {
 		"activities": [
 			{
-				"name": "LKUP_L2_TYPE",
+				"name": "LKUP_GET_FILETYPE_CSV_EXCEL",
+				"description": "",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -17,10 +18,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": {
-							"value": "SELECT DISTINCT L2_switch_type\nFROM dbo.vb_tbl_job a\nJOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}'\n",
-							"type": "Expression"
-						},
+						"sqlReaderQuery": "SELECT DISTINCT L4_switch_type\nFROM dbo.vb_tbl_job a\nJOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -31,11 +29,11 @@
 				}
 			},
 			{
-				"name": "SWITCH_L2_SOURCE",
+				"name": "SWITCH_FILE_TYPE",
 				"type": "Switch",
 				"dependsOn": [
 					{
-						"activity": "LKUP_L2_TYPE",
+						"activity": "LKUP_GET_FILETYPE_CSV_EXCEL",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -44,15 +42,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"on": {
-						"value": "@activity('LKUP_L2_TYPE').output.firstRow.L2_switch_type",
+						"value": "@activity('LKUP_GET_FILETYPE_CSV_EXCEL').output.firstRow.L4_switch_type",
 						"type": "Expression"
 					},
 					"cases": [
 						{
-							"value": "CloudStorage",
+							"value": "CSV",
 							"activities": [
 								{
-									"name": "EXEC_PL3",
+									"name": "Execute Pipeline1",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
 									"policy": {
@@ -61,7 +59,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "PL3_CLOUDSG_CSV_EXCEL",
+											"referenceName": "PL4_CSV",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,
