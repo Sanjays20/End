@@ -1,0 +1,15 @@
+{
+	"name": "END-DEV-ETL",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "7f5b831e-50c7-4014-a35b-223f5e118a49",
+		"tenantId": "529ec848-1485-4efa-ad95-03b7995e0548"
+	}
+}
