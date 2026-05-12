@@ -1100,7 +1100,7 @@
 										"type": "Expression"
 									},
 									"filename": {
-										"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.filename",
+										"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.sourcefile",
 										"type": "Expression"
 									},
 									"sheetname": {
