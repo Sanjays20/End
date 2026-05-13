@@ -8,6 +8,12 @@
 		"LS_AZSQLDB_METADATA_password": {
 			"value": ""
 		},
+		"LS_ONPREM_ADLS_accountKey": {
+			"value": ""
+		},
+		"LS_ONPREM_SRC_password": {
+			"value": ""
+		},
 		"LS_AZADLS_PARAM_properties_typeProperties_url": {
 			"value": "@{linkedService().storage_account_loc}"
 		},
@@ -19,6 +25,18 @@
 		},
 		"LS_AZSQLDB_METADATA_properties_typeProperties_userName": {
 			"value": "admin2"
+		},
+		"LS_ONPREM_ADLS_properties_typeProperties_url": {
+			"value": "https://adlsdevsrc145.dfs.core.windows.net/"
+		},
+		"LS_ONPREM_SRC_properties_typeProperties_server": {
+			"value": "localhost"
+		},
+		"LS_ONPREM_SRC_properties_typeProperties_database": {
+			"value": "End_to_End_ETL_PROJECT"
+		},
+		"LS_ONPREM_SRC_properties_typeProperties_userName": {
+			"value": "admin"
 		},
 		"containerUri": {
 			"value": ""
