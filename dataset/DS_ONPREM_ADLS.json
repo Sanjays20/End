@@ -1,0 +1,27 @@
+{
+	"name": "DS_ONPREM_ADLS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ONPREM_ADLS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tablename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@dataset().tablename",
+					"type": "Expression"
+				}
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
