@@ -15,13 +15,13 @@
 			"value": "@{linkedService().storage_account_loc}"
 		},
 		"LS_AZSQLDB_METADATA_properties_typeProperties_server": {
-			"value": "sql-srvr-dev.database.windows.net"
+			"value": "sql-server-dev143.database.windows.net"
 		},
 		"LS_AZSQLDB_METADATA_properties_typeProperties_database": {
-			"value": "sql-db-dev"
+			"value": "sql-dev-db143"
 		},
 		"LS_AZSQLDB_METADATA_properties_typeProperties_userName": {
-			"value": "admin2"
+			"value": "admin143"
 		},
 		"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server": {
 			"value": "localhost"

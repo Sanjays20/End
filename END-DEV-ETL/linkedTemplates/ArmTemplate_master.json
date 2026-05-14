@@ -21,15 +21,15 @@
 		},
 		"LS_AZSQLDB_METADATA_properties_typeProperties_server": {
 			"type": "string",
-			"defaultValue": "sql-srvr-dev.database.windows.net"
+			"defaultValue": "sql-server-dev143.database.windows.net"
 		},
 		"LS_AZSQLDB_METADATA_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "sql-db-dev"
+			"defaultValue": "sql-dev-db143"
 		},
 		"LS_AZSQLDB_METADATA_properties_typeProperties_userName": {
 			"type": "string",
-			"defaultValue": "admin2"
+			"defaultValue": "admin143"
 		},
 		"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server": {
 			"type": "string",
