@@ -159,11 +159,11 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"storage_account_loc": {
-								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.sinkdata",
+								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.targetdata",
 								"type": "Expression"
 							},
 							"directory": {
-								"value": "@concat(\n    activity('LKUP_JOB_DETAILS').output.firstRow.sinkdirectory,\n    '/csv/',\n    formatDateTime(utcNow(), 'yyyy/MM/dd')\n)",
+								"value": "@concat(\n    activity('LKUP_JOB_DETAILS').output.firstRow.targetdirectory,\n    '/csv/',\n    formatDateTime(utcNow(), 'yyyy/MM/dd')\n)",
 								"type": "Expression"
 							}
 						}
