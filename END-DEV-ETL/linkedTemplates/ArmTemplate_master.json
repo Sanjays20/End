@@ -11,13 +11,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_AZSQLDB_METADATA'"
 		},
-		"LS_ONPREM_ADLS_accountKey": {
+		"LS_ONPREM_SQL_SERVER_SRC_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'LS_ONPREM_ADLS'"
-		},
-		"LS_ONPREM_SRC_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_ONPREM_SRC'"
+			"metadata": "Secure string for 'password' of 'LS_ONPREM_SQL_SERVER_SRC'"
 		},
 		"LS_AZADLS_PARAM_properties_typeProperties_url": {
 			"type": "string",
@@ -35,19 +31,15 @@
 			"type": "string",
 			"defaultValue": "admin2"
 		},
-		"LS_ONPREM_ADLS_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlsdevsrc145.dfs.core.windows.net/"
-		},
-		"LS_ONPREM_SRC_properties_typeProperties_server": {
+		"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "localhost"
 		},
-		"LS_ONPREM_SRC_properties_typeProperties_database": {
+		"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_database": {
 			"type": "string",
 			"defaultValue": "End_to_End_ETL_PROJECT"
 		},
-		"LS_ONPREM_SRC_properties_typeProperties_userName": {
+		"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "admin"
 		},
@@ -81,11 +73,8 @@
 					"LS_AZSQLDB_METADATA_password": {
 						"value": "[parameters('LS_AZSQLDB_METADATA_password')]"
 					},
-					"LS_ONPREM_ADLS_accountKey": {
-						"value": "[parameters('LS_ONPREM_ADLS_accountKey')]"
-					},
-					"LS_ONPREM_SRC_password": {
-						"value": "[parameters('LS_ONPREM_SRC_password')]"
+					"LS_ONPREM_SQL_SERVER_SRC_password": {
+						"value": "[parameters('LS_ONPREM_SQL_SERVER_SRC_password')]"
 					},
 					"LS_AZADLS_PARAM_properties_typeProperties_url": {
 						"value": "[parameters('LS_AZADLS_PARAM_properties_typeProperties_url')]"
@@ -99,17 +88,14 @@
 					"LS_AZSQLDB_METADATA_properties_typeProperties_userName": {
 						"value": "[parameters('LS_AZSQLDB_METADATA_properties_typeProperties_userName')]"
 					},
-					"LS_ONPREM_ADLS_properties_typeProperties_url": {
-						"value": "[parameters('LS_ONPREM_ADLS_properties_typeProperties_url')]"
+					"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server": {
+						"value": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server')]"
 					},
-					"LS_ONPREM_SRC_properties_typeProperties_server": {
-						"value": "[parameters('LS_ONPREM_SRC_properties_typeProperties_server')]"
+					"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_database": {
+						"value": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_database')]"
 					},
-					"LS_ONPREM_SRC_properties_typeProperties_database": {
-						"value": "[parameters('LS_ONPREM_SRC_properties_typeProperties_database')]"
-					},
-					"LS_ONPREM_SRC_properties_typeProperties_userName": {
-						"value": "[parameters('LS_ONPREM_SRC_properties_typeProperties_userName')]"
+					"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_userName": {
+						"value": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_userName')]"
 					}
 				}
 			},

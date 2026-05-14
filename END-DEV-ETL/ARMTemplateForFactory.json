@@ -11,13 +11,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_AZSQLDB_METADATA'"
 		},
-		"LS_ONPREM_ADLS_accountKey": {
+		"LS_ONPREM_SQL_SERVER_SRC_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'LS_ONPREM_ADLS'"
-		},
-		"LS_ONPREM_SRC_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_ONPREM_SRC'"
+			"metadata": "Secure string for 'password' of 'LS_ONPREM_SQL_SERVER_SRC'"
 		},
 		"LS_AZADLS_PARAM_properties_typeProperties_url": {
 			"type": "string",
@@ -35,19 +31,15 @@
 			"type": "string",
 			"defaultValue": "admin2"
 		},
-		"LS_ONPREM_ADLS_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlsdevsrc145.dfs.core.windows.net/"
-		},
-		"LS_ONPREM_SRC_properties_typeProperties_server": {
+		"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "localhost"
 		},
-		"LS_ONPREM_SRC_properties_typeProperties_database": {
+		"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_database": {
 			"type": "string",
 			"defaultValue": "End_to_End_ETL_PROJECT"
 		},
-		"LS_ONPREM_SRC_properties_typeProperties_userName": {
+		"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "admin"
 		}
@@ -221,7 +213,7 @@
 											"userProperties": [],
 											"typeProperties": {
 												"pipeline": {
-													"referenceName": "PL_SQL",
+													"referenceName": "PL4_EXCEL",
 													"type": "PipelineReference"
 												},
 												"waitOnCompletion": true,
@@ -252,7 +244,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_AZSQLDB_METADATA')]",
 				"[concat(variables('factoryId'), '/pipelines/PL3_CLOUDSG_CSV_EXCEL')]",
-				"[concat(variables('factoryId'), '/pipelines/PL_SQL')]"
+				"[concat(variables('factoryId'), '/pipelines/PL4_EXCEL')]"
 			]
 		},
 		{
@@ -1088,141 +1080,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/PL_SQL')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "LKUP_SQL",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SqlServerSource",
-								"sqlReaderQuery": "SELECT TABLE_NAME\nFROM INFORMATION_SCHEMA.TABLES\nWHERE TABLE_NAME LIKE 'olist%'\nAND TABLE_TYPE = 'BASE TABLE'",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "DS_ONPREM_SRC",
-								"type": "DatasetReference",
-								"parameters": {
-									"table_name": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "FOR_EACH_SQL",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "LKUP_SQL",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('LKUP_SQL').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "CPY_SQL",
-									"description": "",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "SqlServerSource",
-											"queryTimeout": "02:00:00",
-											"partitionOption": "None"
-										},
-										"sink": {
-											"type": "ParquetSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "ParquetWriteSettings"
-											}
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "DS_ONPREM_SRC",
-											"type": "DatasetReference",
-											"parameters": {
-												"table_name": {
-													"value": "@item().table_name",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "DS_ONPREM_ADLS",
-											"type": "DatasetReference",
-											"parameters": {
-												"tablename": {
-													"value": "@item().table_name",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"parameters": {
-					"Trigger": {
-						"type": "string"
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_ONPREM_SRC')]",
-				"[concat(variables('factoryId'), '/datasets/DS_ONPREM_ADLS')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/DS_AZADLS_CSVCOPY_CLOUD_SRC')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1396,102 +1253,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_ONPREM_ADLS')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_ONPREM_ADLS",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"tablename": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": {
-							"value": "@dataset().tablename",
-							"type": "Expression"
-						}
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_ONPREM_ADLS')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_ONPREM_SRC')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_ONPREM_SRC",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"table_name": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [
-					{
-						"name": "order_id",
-						"type": "nvarchar"
-					},
-					{
-						"name": "customer_id",
-						"type": "nvarchar"
-					},
-					{
-						"name": "order_status",
-						"type": "nvarchar"
-					},
-					{
-						"name": "order_purchase_timestamp",
-						"type": "datetime2",
-						"scale": 7
-					},
-					{
-						"name": "order_approved_at",
-						"type": "datetime2",
-						"scale": 7
-					},
-					{
-						"name": "order_delivered_carrier_date",
-						"type": "datetime2",
-						"scale": 7
-					},
-					{
-						"name": "order_delivered_customer_date",
-						"type": "datetime2",
-						"scale": 7
-					},
-					{
-						"name": "order_estimated_delivery_date",
-						"type": "datetime2",
-						"scale": 7
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "olist_orders_dataset"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_ONPREM_SRC')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/LS_AZADLS_PARAM')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -1532,39 +1293,32 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_ONPREM_ADLS')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime1')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('LS_ONPREM_ADLS_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('LS_ONPREM_ADLS_accountKey')]"
-					}
-				}
+				"type": "SelfHosted",
+				"typeProperties": {}
 			},
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_ONPREM_SRC')]",
+			"name": "[concat(parameters('factoryName'), '/LS_ONPREM_SQL_SERVER_SRC')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
 				"type": "SqlServer",
 				"typeProperties": {
-					"server": "[parameters('LS_ONPREM_SRC_properties_typeProperties_server')]",
-					"database": "[parameters('LS_ONPREM_SRC_properties_typeProperties_database')]",
+					"server": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server')]",
+					"database": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_database')]",
 					"encrypt": "optional",
 					"trustServerCertificate": false,
 					"authenticationType": "SQL",
-					"userName": "[parameters('LS_ONPREM_SRC_properties_typeProperties_userName')]",
+					"userName": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_userName')]",
 					"password": {
 						"type": "SecureString",
-						"value": "[parameters('LS_ONPREM_SRC_password')]"
+						"value": "[parameters('LS_ONPREM_SQL_SERVER_SRC_password')]"
 					}
 				},
 				"connectVia": {
@@ -1575,16 +1329,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1')]"
 			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/integrationRuntime1')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "SelfHosted",
-				"typeProperties": {}
-			},
-			"dependsOn": []
 		}
 	]
 }
