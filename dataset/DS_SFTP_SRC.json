@@ -1,0 +1,43 @@
+{
+	"name": "DS_SFTP_SRC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SFTP_SRC",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"sftp_directory": {
+				"type": "string"
+			},
+			"sourcefile": {
+				"type": "string"
+			},
+			"delimiter": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "SftpLocation",
+				"fileName": {
+					"value": "@dataset().sourcefile",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().sftp_directory",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": {
+				"value": "@dataset().delimiter",
+				"type": "Expression"
+			},
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
