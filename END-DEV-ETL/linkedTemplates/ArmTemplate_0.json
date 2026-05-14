@@ -1714,7 +1714,7 @@
 									]
 								},
 								{
-									"value": "EXCEL",
+									"value": "Excel",
 									"activities": [
 										{
 											"name": "EXEC_EXCEL",
