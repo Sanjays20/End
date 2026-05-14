@@ -11,6 +11,9 @@
 		"LS_ONPREM_SQL_SERVER_SRC_password": {
 			"value": ""
 		},
+		"LS_SFTP_SRC_password": {
+			"value": ""
+		},
 		"LS_AZADLS_PARAM_properties_typeProperties_url": {
 			"value": "@{linkedService().storage_account_loc}"
 		},
@@ -31,6 +34,15 @@
 		},
 		"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_userName": {
 			"value": "admin"
+		},
+		"LS_SFTP_SRC_properties_typeProperties_host": {
+			"value": "adlsdevraw145.blob.core.windows.net"
+		},
+		"LS_SFTP_SRC_properties_typeProperties_userName": {
+			"value": "adlsdevraw145.sftp"
+		},
+		"LS_SFTP_PARAMS_properties_typeProperties_url": {
+			"value": "@{linkedService().storage_account_url}"
 		}
 	}
 }

@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_ONPREM_SQL_SERVER_SRC'"
 		},
+		"LS_SFTP_SRC_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_SFTP_SRC'"
+		},
 		"LS_AZADLS_PARAM_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "@{linkedService().storage_account_loc}"
@@ -42,6 +46,18 @@
 		"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "admin"
+		},
+		"LS_SFTP_SRC_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "adlsdevraw145.blob.core.windows.net"
+		},
+		"LS_SFTP_SRC_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "adlsdevraw145.sftp"
+		},
+		"LS_SFTP_PARAMS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().storage_account_url}"
 		},
 		"containerUri": {
 			"type": "string",
@@ -73,6 +89,9 @@
 					"LS_AZSQLDB_METADATA_password": {
 						"value": "[parameters('LS_AZSQLDB_METADATA_password')]"
 					},
+					"LS_SFTP_SRC_password": {
+						"value": "[parameters('LS_SFTP_SRC_password')]"
+					},
 					"LS_ONPREM_SQL_SERVER_SRC_password": {
 						"value": "[parameters('LS_ONPREM_SQL_SERVER_SRC_password')]"
 					},
@@ -88,6 +107,15 @@
 					"LS_AZSQLDB_METADATA_properties_typeProperties_userName": {
 						"value": "[parameters('LS_AZSQLDB_METADATA_properties_typeProperties_userName')]"
 					},
+					"LS_SFTP_SRC_properties_typeProperties_host": {
+						"value": "[parameters('LS_SFTP_SRC_properties_typeProperties_host')]"
+					},
+					"LS_SFTP_SRC_properties_typeProperties_userName": {
+						"value": "[parameters('LS_SFTP_SRC_properties_typeProperties_userName')]"
+					},
+					"LS_SFTP_PARAMS_properties_typeProperties_url": {
+						"value": "[parameters('LS_SFTP_PARAMS_properties_typeProperties_url')]"
+					},
 					"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server": {
 						"value": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server')]"
 					},
@@ -100,6 +128,26 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "END-DEV-ETL_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'END-DEV-ETL_ArmTemplate_0')]"
+			]
 		}
 	]
 }
