@@ -1436,7 +1436,7 @@
 										"type": "Expression"
 									},
 									"directory": {
-										"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.targetdirectory",
+										"value": "@concat(\n    activity('LKUP_JOB_DETAILS').output.firstRow.targetdirectory,\n    '/json/',\n    formatDateTime(utcNow(), 'yyyy/MM/dd')\n)",
 										"type": "Expression"
 									}
 								}
