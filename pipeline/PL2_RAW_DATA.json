@@ -88,7 +88,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "PL_SQL",
+											"referenceName": "PL4_EXCEL",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,
