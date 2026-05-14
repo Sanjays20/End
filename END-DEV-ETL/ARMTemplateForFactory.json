@@ -872,7 +872,7 @@
 										"type": "Expression"
 									},
 									"directory": {
-										"value": "@concat(\n    activity('LKUP_JOB_DETAILS').output.firstRow.sinkdirectory,\n    '/excel/',\n    formatDateTime(utcNow(), 'yyyy/MM/dd')\n)",
+										"value": "@concat(\n    activity('LKUP_JOB_DETAILS').output.firstRow.targetdirectory,\n    '/excel/',\n    formatDateTime(utcNow(), 'yyyy/MM/dd')\n)",
 										"type": "Expression"
 									}
 								}
