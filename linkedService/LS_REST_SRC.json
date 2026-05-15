@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "https://retoolapi.dev/tkZy7C/data",
+			"url": "https://retoolapi.dev",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}
