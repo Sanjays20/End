@@ -47,6 +47,18 @@
 			"type": "string",
 			"defaultValue": "admin"
 		},
+		"LS_REST_PARAMS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().p_storageurl}"
+		},
+		"LS_REST_SRC_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://retoolapi.dev/tkZy7C/data"
+		},
+		"LS_SFTP_PARAMS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().storage_account_url}"
+		},
 		"LS_SFTP_SRC_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "adlsdevraw145.blob.core.windows.net"
@@ -54,18 +66,6 @@
 		"LS_SFTP_SRC_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "adlsdevraw145.sftp"
-		},
-		"LS_SFTP_PARAMS_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "@{linkedService().storage_account_url}"
-		},
-		"LS_REST_SRC_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://retoolapi.dev/tkZy7C/data"
-		},
-		"LS_REST_PARAMS_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "@{linkedService().p_storageurl}"
 		},
 		"containerUri": {
 			"type": "string",
@@ -115,20 +115,20 @@
 					"LS_AZSQLDB_METADATA_properties_typeProperties_userName": {
 						"value": "[parameters('LS_AZSQLDB_METADATA_properties_typeProperties_userName')]"
 					},
+					"LS_REST_PARAMS_properties_typeProperties_url": {
+						"value": "[parameters('LS_REST_PARAMS_properties_typeProperties_url')]"
+					},
+					"LS_REST_SRC_properties_typeProperties_url": {
+						"value": "[parameters('LS_REST_SRC_properties_typeProperties_url')]"
+					},
+					"LS_SFTP_PARAMS_properties_typeProperties_url": {
+						"value": "[parameters('LS_SFTP_PARAMS_properties_typeProperties_url')]"
+					},
 					"LS_SFTP_SRC_properties_typeProperties_host": {
 						"value": "[parameters('LS_SFTP_SRC_properties_typeProperties_host')]"
 					},
 					"LS_SFTP_SRC_properties_typeProperties_userName": {
 						"value": "[parameters('LS_SFTP_SRC_properties_typeProperties_userName')]"
-					},
-					"LS_SFTP_PARAMS_properties_typeProperties_url": {
-						"value": "[parameters('LS_SFTP_PARAMS_properties_typeProperties_url')]"
-					},
-					"LS_REST_SRC_properties_typeProperties_url": {
-						"value": "[parameters('LS_REST_SRC_properties_typeProperties_url')]"
-					},
-					"LS_REST_PARAMS_properties_typeProperties_url": {
-						"value": "[parameters('LS_REST_PARAMS_properties_typeProperties_url')]"
 					},
 					"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server": {
 						"value": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server')]"

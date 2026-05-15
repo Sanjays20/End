@@ -35,20 +35,20 @@
 		"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_userName": {
 			"value": "admin"
 		},
+		"LS_REST_PARAMS_properties_typeProperties_url": {
+			"value": "@{linkedService().p_storageurl}"
+		},
+		"LS_REST_SRC_properties_typeProperties_url": {
+			"value": "https://retoolapi.dev/tkZy7C/data"
+		},
+		"LS_SFTP_PARAMS_properties_typeProperties_url": {
+			"value": "@{linkedService().storage_account_url}"
+		},
 		"LS_SFTP_SRC_properties_typeProperties_host": {
 			"value": "adlsdevraw145.blob.core.windows.net"
 		},
 		"LS_SFTP_SRC_properties_typeProperties_userName": {
 			"value": "adlsdevraw145.sftp"
-		},
-		"LS_SFTP_PARAMS_properties_typeProperties_url": {
-			"value": "@{linkedService().storage_account_url}"
-		},
-		"LS_REST_SRC_properties_typeProperties_url": {
-			"value": "https://retoolapi.dev/tkZy7C/data"
-		},
-		"LS_REST_PARAMS_properties_typeProperties_url": {
-			"value": "@{linkedService().p_storageurl}"
 		}
 	}
 }

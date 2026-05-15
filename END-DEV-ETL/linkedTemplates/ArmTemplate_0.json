@@ -35,6 +35,18 @@
 			"type": "string",
 			"defaultValue": "admin143"
 		},
+		"LS_REST_PARAMS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().p_storageurl}"
+		},
+		"LS_REST_SRC_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://retoolapi.dev/tkZy7C/data"
+		},
+		"LS_SFTP_PARAMS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().storage_account_url}"
+		},
 		"LS_SFTP_SRC_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "adlsdevraw145.blob.core.windows.net"
@@ -42,18 +54,6 @@
 		"LS_SFTP_SRC_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "adlsdevraw145.sftp"
-		},
-		"LS_SFTP_PARAMS_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "@{linkedService().storage_account_url}"
-		},
-		"LS_REST_SRC_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://retoolapi.dev/tkZy7C/data"
-		},
-		"LS_REST_PARAMS_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "@{linkedService().p_storageurl}"
 		},
 		"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server": {
 			"type": "string",
@@ -113,12 +113,53 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/integrationRuntime1')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"name": "[concat(parameters('factoryName'), '/LS_REST_PARAMS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"type": "SelfHosted",
-				"typeProperties": {}
+				"parameters": {
+					"p_storageurl": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_REST_PARAMS_properties_typeProperties_url')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_REST_SRC')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('LS_REST_SRC_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_SFTP_PARAMS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"storage_account_url": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_SFTP_PARAMS_properties_typeProperties_url')]"
+				}
 			},
 			"dependsOn": []
 		},
@@ -144,53 +185,12 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_SFTP_PARAMS')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime1')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"parameters": {
-					"storage_account_url": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('LS_SFTP_PARAMS_properties_typeProperties_url')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_REST_SRC')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "RestService",
-				"typeProperties": {
-					"url": "[parameters('LS_REST_SRC_properties_typeProperties_url')]",
-					"enableServerCertificateValidation": true,
-					"authenticationType": "Anonymous"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_REST_PARAMS')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"parameters": {
-					"p_storageurl": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('LS_REST_PARAMS_properties_typeProperties_url')]"
-				}
+				"type": "SelfHosted",
+				"typeProperties": {}
 			},
 			"dependsOn": []
 		},
@@ -368,34 +368,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_ONPREM_SQL_SERVER_SRC')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"server": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server')]",
-					"database": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_database')]",
-					"encrypt": "optional",
-					"trustServerCertificate": false,
-					"authenticationType": "SQL",
-					"userName": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('LS_ONPREM_SQL_SERVER_SRC_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "integrationRuntime1",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/DS_JSON_SRC')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -440,6 +412,66 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_AZADLS_PARAM')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_REST_SRC')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_REST_SRC",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_REST_SRC')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_REST_TRG')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_REST_PARAMS",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"p_storageurl": "https://adlsdevsrc145.dfs.core.windows.net"
+					}
+				},
+				"parameters": {
+					"p_directory": {
+						"type": "string"
+					},
+					"p_filename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().p_filename",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().p_directory",
+							"type": "Expression"
+						}
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_REST_PARAMS')]"
 			]
 		},
 		{
@@ -532,63 +564,31 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_REST_SRC')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
+			"name": "[concat(parameters('factoryName'), '/LS_ONPREM_SQL_SERVER_SRC')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_REST_SRC",
-					"type": "LinkedServiceReference"
-				},
 				"annotations": [],
-				"type": "RestResource",
-				"typeProperties": {},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_REST_SRC')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_REST_TRG')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_REST_PARAMS",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"p_storageurl": "https://adlsdevsrc145.dfs.core.windows.net"
-					}
-				},
-				"parameters": {
-					"p_directory": {
-						"type": "string"
-					},
-					"p_filename": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "Parquet",
+				"type": "SqlServer",
 				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@dataset().p_filename",
-							"type": "Expression"
-						},
-						"folderPath": {
-							"value": "@dataset().p_directory",
-							"type": "Expression"
-						}
-					},
-					"compressionCodec": "snappy"
+					"server": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server')]",
+					"database": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_database')]",
+					"encrypt": "optional",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('LS_ONPREM_SQL_SERVER_SRC_password')]"
+					}
 				},
-				"schema": []
+				"connectVia": {
+					"referenceName": "integrationRuntime1",
+					"type": "IntegrationRuntimeReference"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_REST_PARAMS')]"
+				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1')]"
 			]
 		},
 		{
