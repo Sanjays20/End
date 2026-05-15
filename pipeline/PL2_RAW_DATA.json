@@ -76,7 +76,7 @@
 							]
 						},
 						{
-							"value": "sql",
+							"value": "API",
 							"activities": [
 								{
 									"name": "Exec_SQL",
@@ -88,7 +88,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "PL4_EXCEL",
+											"referenceName": "PL3_CLOUDSG_CSV_EXCEL",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,
