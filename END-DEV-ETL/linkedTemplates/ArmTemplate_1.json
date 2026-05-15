@@ -713,6 +713,33 @@
 											}
 										}
 									]
+								},
+								{
+									"value": "RESTAPI",
+									"activities": [
+										{
+											"name": "Exec_RESTAPI",
+											"type": "ExecutePipeline",
+											"dependsOn": [],
+											"policy": {
+												"secureInput": false
+											},
+											"userProperties": [],
+											"typeProperties": {
+												"pipeline": {
+													"referenceName": "PL_RESTAPI",
+													"type": "PipelineReference"
+												},
+												"waitOnCompletion": true,
+												"parameters": {
+													"Trigger": {
+														"value": "@pipeline().parameters.Trigger",
+														"type": "Expression"
+													}
+												}
+											}
+										}
+									]
 								}
 							]
 						}
@@ -729,7 +756,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_SFTP')]"
+				"[concat(variables('factoryId'), '/pipelines/PL_SFTP')]",
+				"[concat(variables('factoryId'), '/pipelines/PL_RESTAPI')]"
 			]
 		},
 		{
@@ -939,7 +967,7 @@
 									]
 								},
 								{
-									"value": "sql",
+									"value": "API",
 									"activities": [
 										{
 											"name": "Exec_SQL",
@@ -951,7 +979,7 @@
 											"userProperties": [],
 											"typeProperties": {
 												"pipeline": {
-													"referenceName": "PL4_EXCEL",
+													"referenceName": "PL3_CLOUDSG_CSV_EXCEL",
 													"type": "PipelineReference"
 												},
 												"waitOnCompletion": true,
