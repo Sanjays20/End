@@ -53,7 +53,7 @@
 		},
 		"LS_REST_SRC_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://retoolapi.dev/tkZy7C/data"
+			"defaultValue": "https://retoolapi.dev"
 		},
 		"LS_SFTP_PARAMS_properties_typeProperties_url": {
 			"type": "string",
