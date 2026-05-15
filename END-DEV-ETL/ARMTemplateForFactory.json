@@ -1619,7 +1619,12 @@
 							{
 								"referenceName": "DS_REST_SRC",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"url": {
+										"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.apiurl",
+										"type": "Expression"
+									}
+								}
 							}
 						],
 						"outputs": [
@@ -1628,7 +1633,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"p_directory": {
-										"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.targetdirectory",
+										"value": "@concat(\n    activity('LKUP_JOB_DETAILS').output.firstRow.targetdirectory,\n    '/restapi/',\n    formatDateTime(utcNow(), 'yyyy/MM/dd')\n)",
 										"type": "Expression"
 									},
 									"p_filename": {
@@ -2270,9 +2275,19 @@
 					"referenceName": "LS_REST_SRC",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"url": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "RestResource",
-				"typeProperties": {},
+				"typeProperties": {
+					"relativeUrl": {
+						"value": "@dataset().url",
+						"type": "Expression"
+					}
+				},
 				"schema": []
 			},
 			"dependsOn": [

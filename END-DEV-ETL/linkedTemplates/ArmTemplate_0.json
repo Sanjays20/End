@@ -423,9 +423,19 @@
 					"referenceName": "LS_REST_SRC",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"url": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "RestResource",
-				"typeProperties": {},
+				"typeProperties": {
+					"relativeUrl": {
+						"value": "@dataset().url",
+						"type": "Expression"
+					}
+				},
 				"schema": []
 			},
 			"dependsOn": [
