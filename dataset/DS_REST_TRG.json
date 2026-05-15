@@ -5,7 +5,10 @@
 			"referenceName": "LS_REST_PARAMS",
 			"type": "LinkedServiceReference",
 			"parameters": {
-				"p_storageurl": "https://adlsdevsrc145.dfs.core.windows.net"
+				"p_storageurl": {
+					"value": "@dataset().url",
+					"type": "Expression"
+				}
 			}
 		},
 		"parameters": {
@@ -13,6 +16,9 @@
 				"type": "string"
 			},
 			"p_filename": {
+				"type": "string"
+			},
+			"url": {
 				"type": "string"
 			}
 		},

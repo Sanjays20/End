@@ -143,6 +143,10 @@
 							"p_filename": {
 								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.targetdata",
 								"type": "Expression"
+							},
+							"url": {
+								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.apiurl",
+								"type": "Expression"
 							}
 						}
 					}
