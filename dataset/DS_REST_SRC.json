@@ -7,8 +7,7 @@
 		},
 		"parameters": {
 			"url": {
-				"type": "string",
-				"defaultValue": "tkZy7C/data"
+				"type": "string"
 			}
 		},
 		"annotations": [],
