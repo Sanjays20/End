@@ -135,7 +135,7 @@
 								"type": "Expression"
 							},
 							"p_filename": {
-								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.targetd",
+								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.targetdata",
 								"type": "Expression"
 							}
 						}
