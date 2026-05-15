@@ -125,7 +125,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"url": {
-								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.apiurl",
+								"value": "@replace(activity('LKUP_JOB_DETAILS').output.firstRow.sourcedata,'https://rettolapi.dev/','')",
 								"type": "Expression"
 							}
 						}
