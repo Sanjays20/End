@@ -44,6 +44,12 @@
 		"LS_SFTP_PARAMS_properties_typeProperties_url": {
 			"value": "@{linkedService().storage_account_url}"
 		},
+		"LS_REST_SRC_properties_typeProperties_url": {
+			"value": "https://retoolapi.dev/tkZy7C/data"
+		},
+		"LS_REST_PARAMS_properties_typeProperties_url": {
+			"value": "@{linkedService().p_storageurl}"
+		},
 		"containerUri": {
 			"value": ""
 		},
