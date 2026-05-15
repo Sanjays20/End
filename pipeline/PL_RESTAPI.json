@@ -131,11 +131,11 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"p_directory": {
-								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.targetdata",
+								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.targetdirectory",
 								"type": "Expression"
 							},
 							"p_filename": {
-								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.targetdirectory",
+								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.targetd",
 								"type": "Expression"
 							}
 						}
