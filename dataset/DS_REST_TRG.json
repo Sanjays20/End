@@ -1,16 +1,6 @@
 {
 	"name": "DS_REST_TRG",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "LS_REST_PARAMS",
-			"type": "LinkedServiceReference",
-			"parameters": {
-				"p_storageurl": {
-					"value": "@dataset().url",
-					"type": "Expression"
-				}
-			}
-		},
 		"parameters": {
 			"p_filesystem": {
 				"type": "string"
