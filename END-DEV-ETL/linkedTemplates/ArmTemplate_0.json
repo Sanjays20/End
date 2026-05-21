@@ -35,6 +35,10 @@
 			"type": "string",
 			"defaultValue": "admin143"
 		},
+		"LS_PAR_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{concat('https://', linkedService().storageaccount, '.dfs.core.windows.net')}"
+		},
 		"LS_REST_SRC_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://retoolapi.dev"
@@ -50,10 +54,6 @@
 		"LS_SFTP_SRC_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "adlsdevraw145.sftp"
-		},
-		"LS_PAR_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "@{concat('https://', linkedService().storageaccount, '.dfs.core.windows.net')}"
 		},
 		"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server": {
 			"type": "string",
@@ -108,6 +108,24 @@
 						"type": "SecureString",
 						"value": "[parameters('LS_AZSQLDB_METADATA_password')]"
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_PAR')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"storageaccount": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_PAR_properties_typeProperties_url')]"
 				}
 			},
 			"dependsOn": []
@@ -173,24 +191,6 @@
 			"properties": {
 				"type": "SelfHosted",
 				"typeProperties": {}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_PAR')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"parameters": {
-					"storageaccount": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('LS_PAR_properties_typeProperties_url')]"
-				}
 			},
 			"dependsOn": []
 		},
@@ -443,6 +443,61 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_REST_TRG')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_PAR",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"storageaccount": {
+							"value": "@dataset().storageaccount",
+							"type": "Expression"
+						}
+					}
+				},
+				"parameters": {
+					"filesystem": {
+						"type": "string"
+					},
+					"directory": {
+						"type": "string"
+					},
+					"filename": {
+						"type": "string"
+					},
+					"storageaccount": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().directory",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().filesystem",
+							"type": "Expression"
+						}
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_PAR')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DS_SFTP_SRC')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -557,61 +612,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_REST_TRG')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_PAR",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"storageaccount": {
-							"value": "@dataset().storageaccount",
-							"type": "Expression"
-						}
-					}
-				},
-				"parameters": {
-					"filesystem": {
-						"type": "string"
-					},
-					"directory": {
-						"type": "string"
-					},
-					"filename": {
-						"type": "string"
-					},
-					"storageaccount": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@dataset().filename",
-							"type": "Expression"
-						},
-						"folderPath": {
-							"value": "@dataset().directory",
-							"type": "Expression"
-						},
-						"fileSystem": {
-							"value": "@dataset().filesystem",
-							"type": "Expression"
-						}
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_PAR')]"
 			]
 		},
 		{

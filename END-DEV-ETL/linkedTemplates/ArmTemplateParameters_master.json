@@ -35,6 +35,9 @@
 		"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_userName": {
 			"value": "admin"
 		},
+		"LS_PAR_properties_typeProperties_url": {
+			"value": "@{concat('https://', linkedService().storageaccount, '.dfs.core.windows.net')}"
+		},
 		"LS_REST_SRC_properties_typeProperties_url": {
 			"value": "https://retoolapi.dev"
 		},
@@ -46,9 +49,6 @@
 		},
 		"LS_SFTP_SRC_properties_typeProperties_userName": {
 			"value": "adlsdevraw145.sftp"
-		},
-		"LS_PAR_properties_typeProperties_url": {
-			"value": "@{concat('https://', linkedService().storageaccount, '.dfs.core.windows.net')}"
 		},
 		"containerUri": {
 			"value": ""
