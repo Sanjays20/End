@@ -1,0 +1,50 @@
+{
+	"name": "DS_REST_TRG",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_PAR",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"storageaccount": {
+					"value": "@dataset().storageaccount",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"filesystem": {
+				"type": "string"
+			},
+			"directory": {
+				"type": "string"
+			},
+			"filename": {
+				"type": "string"
+			},
+			"storageaccount": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().filename",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().directory",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().filesystem",
+					"type": "Expression"
+				}
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

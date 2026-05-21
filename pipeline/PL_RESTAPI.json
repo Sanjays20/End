@@ -136,20 +136,20 @@
 						"referenceName": "DS_REST_TRG",
 						"type": "DatasetReference",
 						"parameters": {
-							"p_filesystem": {
+							"filesystem": {
 								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.targetdata",
 								"type": "Expression"
 							},
-							"p_filename": {
-								"value": "@concat(\n    activity('LKUP_JOB_DETAILS').output.firstRow.targetdirectory,\n    '/restapi/',\n    formatDateTime(utcNow(), 'yyyy/MM/dd')\n)",
-								"type": "Expression"
-							},
-							"url": {
-								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.apiurl",
-								"type": "Expression"
-							},
-							"p_directory": {
+							"directory": {
 								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.targetdirectory",
+								"type": "Expression"
+							},
+							"filename": {
+								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.targetfilename",
+								"type": "Expression"
+							},
+							"storageaccount": {
+								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.storageaccount",
 								"type": "Expression"
 							}
 						}
