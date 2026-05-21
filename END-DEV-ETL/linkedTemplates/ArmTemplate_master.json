@@ -47,10 +47,6 @@
 			"type": "string",
 			"defaultValue": "admin"
 		},
-		"LS_REST_PARAMS_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "@{linkedService().p_storageurl}"
-		},
 		"LS_REST_SRC_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://retoolapi.dev"
@@ -66,6 +62,10 @@
 		"LS_SFTP_SRC_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "adlsdevraw145.sftp"
+		},
+		"LS_PAR_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{concat('https://', linkedService().storageaccount, '.dfs.core.windows.net')}"
 		},
 		"containerUri": {
 			"type": "string",
@@ -115,9 +115,6 @@
 					"LS_AZSQLDB_METADATA_properties_typeProperties_userName": {
 						"value": "[parameters('LS_AZSQLDB_METADATA_properties_typeProperties_userName')]"
 					},
-					"LS_REST_PARAMS_properties_typeProperties_url": {
-						"value": "[parameters('LS_REST_PARAMS_properties_typeProperties_url')]"
-					},
 					"LS_REST_SRC_properties_typeProperties_url": {
 						"value": "[parameters('LS_REST_SRC_properties_typeProperties_url')]"
 					},
@@ -129,6 +126,9 @@
 					},
 					"LS_SFTP_SRC_properties_typeProperties_userName": {
 						"value": "[parameters('LS_SFTP_SRC_properties_typeProperties_userName')]"
+					},
+					"LS_PAR_properties_typeProperties_url": {
+						"value": "[parameters('LS_PAR_properties_typeProperties_url')]"
 					},
 					"LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server": {
 						"value": "[parameters('LS_ONPREM_SQL_SERVER_SRC_properties_typeProperties_server')]"
