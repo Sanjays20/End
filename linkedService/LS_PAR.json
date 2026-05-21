@@ -1,0 +1,15 @@
+{
+	"name": "LS_PAR",
+	"properties": {
+		"parameters": {
+			"storageaccount": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "@{concat('https://', linkedService().storageaccount, '.dfs.core.windows.net')}"
+		}
+	}
+}
