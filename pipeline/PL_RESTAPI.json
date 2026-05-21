@@ -149,7 +149,7 @@
 								"type": "Expression"
 							},
 							"storageaccount": {
-								"value": "@activity('LKUP_JOB_DETAILS').output.firstRow.storageaccount",
+								"value": "adlsdevsrc145",
 								"type": "Expression"
 							}
 						}
